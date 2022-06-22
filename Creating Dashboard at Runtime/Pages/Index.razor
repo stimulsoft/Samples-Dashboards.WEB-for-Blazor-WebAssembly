@@ -34,12 +34,13 @@
 
         // Read data
         var dataBytes = await Http.GetByteArrayAsync("Data/Demo.xml");
+        var stream = new MemoryStream(dataBytes);
         var data = new DataSet();
-        data.Read(dataBytes);
+        data.ReadXml(stream);
 
         // Register data
-        report.Dictionary.Databases.Clear();
-        report.RegData("Demo", "Demo", data);
+        report.RegData(data);
+        report.Dictionary.Synchronize();
 
         // Create table
         var tableElement = new StiTableElement();
