@@ -38,8 +38,8 @@
         data.Read(dataBytes);
 
         // Register data
-        report.RegData(data);
-        report.Dictionary.Synchronize();
+        report.Dictionary.Databases.Clear();
+        report.RegData("Demo", "Demo", data);
 
         // Create table
         var tableElement = new StiTableElement();

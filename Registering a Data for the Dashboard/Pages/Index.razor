@@ -29,7 +29,7 @@
         var dashboardBytes = await Http.GetByteArrayAsync("Dashboards/Dashboard.mrt");
         report.Load(dashboardBytes);
 
-        var jsonBytes = System.IO.File.ReadAllBytes("Dashboards/Demo.json");
+        var jsonBytes = await Http.GetByteArrayAsync("Dashboards/Demo.json");
 
         var json = StiJsonConnector.Get();
         var dataSet = json.GetDataSet(new StiJsonOptions(jsonBytes));

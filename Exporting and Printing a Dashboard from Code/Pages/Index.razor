@@ -43,24 +43,8 @@
         var reportBytes = await Http.GetByteArrayAsync("Dashboards/DashboardChristmas.mrt");
         report.Load(reportBytes);
 
-        // Render, without showing progress
-        report.Render(false);
-
-        if (responseAsFile)
-        {
-            // Response as HMTL file
-            StiReportResponse.ResponseAsHtml(report);
-
-            message = new MarkupString("Export to HTML is completed.");
-        }
-        else
-        {
-            // Export to HTML file
-            var _exportFilePath = $"Dashboards/ChristmasDashboard_{DateTime.Now.ToString("yyyy-dd-MM_HH-mm-ss")}.html";
-            report.ExportDocument(Stimulsoft.Report.StiExportFormat.Html, _exportFilePath);
-
-            message = new MarkupString("The exported dashboard is saved to a file: <br />" + _exportFilePath);
-        }
+        StiReportResponse.ResponseAsHtml(report, responseAsFile);
+        message = new MarkupString("Export to HTML is completed.");
     }
 
     private async Task ExportDashboardAsPDF()
@@ -72,26 +56,10 @@
         var reportBytes = await Http.GetByteArrayAsync("Dashboards/DashboardChristmas.mrt");
         report.Load(reportBytes);
 
-        // Render, without showing progress
-        report.Render(false);
-
-        if (responseAsFile)
-        {
-            // Response as PDF file
-            StiReportResponse.ResponseAsPdf(report);
-
-            message = new MarkupString("Export to PDF is completed.");
-        }
-        else
-        {
-            // Export to PDF file
-            var _exportFilePath = $"Dashboards/ChristmasDashboard_{DateTime.Now.ToString("yyyy-dd-MM_HH-mm-ss")}.pdf";
-            report.ExportDocument(Stimulsoft.Report.StiExportFormat.Pdf, _exportFilePath);
-
-            message = new MarkupString("The exported dashboard is saved to a file: <br />" + _exportFilePath);
-        }
+        StiReportResponse.ResponseAsPdf(report, responseAsFile);
+        message = new MarkupString("Export to PDF is completed.");
     }
-    
+
     private async Task PrintDashboard()
     {
         // Create empty dashboard object
@@ -100,9 +68,6 @@
         // Load dashboard template
         var reportBytes = await Http.GetByteArrayAsync("Dashboards/DashboardChristmas.mrt");
         report.Load(reportBytes);
-
-        // Render, w/out showing progress
-        report.Render(false);
 
         // Print dashboard
         StiReportResponse.PrintAsPdf(report);
