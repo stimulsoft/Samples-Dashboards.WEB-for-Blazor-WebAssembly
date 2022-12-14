@@ -5,13 +5,13 @@
 @using Stimulsoft.Report.Web
 @inject HttpClient Http
 
-<!--Dashboard viewer-->
-<StiBlazorViewer Report="@report" />
+<!--Dashboard Viewer-->
+<StiBlazorViewer Report="@Report" />
 
 @code
 {
-    // Dashboard object to use in viewer
-    private StiReport report;
+    // Dashboard object to use in Viewer
+    private StiReport Report;
 
     protected override async Task OnInitializedAsync()
     {
@@ -23,18 +23,18 @@
         //Stimulsoft.Base.StiLicense.LoadFromStream(licenseStream);
 
         // Create dashboard object
-        report = StiReport.CreateNewDashboard();
+        this.Report = StiReport.CreateNewDashboard();
 
         // Load dashboard template
         var dashboardBytes = await Http.GetByteArrayAsync("Dashboards/Dashboard.mrt");
-        report.Load(dashboardBytes);
+        this.Report.Load(dashboardBytes);
 
         var jsonBytes = await Http.GetByteArrayAsync("Dashboards/Demo.json");
 
         var json = StiJsonConnector.Get();
         var dataSet = json.GetDataSet(new StiJsonOptions(jsonBytes));
 
-        report.Dictionary.Databases.Clear();
-        report.RegData("Demo", "Demo", dataSet);
+        this.Report.Dictionary.Databases.Clear();
+        this.Report.RegData("Demo", "Demo", dataSet);
     }
 }

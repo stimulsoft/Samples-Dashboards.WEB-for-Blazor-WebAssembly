@@ -12,12 +12,12 @@
 @inject HttpClient Http
 
 <!--Dashboard Viewer-->
-<StiBlazorViewer Report="@report"></StiBlazorViewer>
+<StiBlazorViewer Report="@Report"></StiBlazorViewer>
 
 @code
 {
-    // Dashboard object to use in viewer
-    private StiReport report;
+    // Dashboard object to use in Viewer
+    private StiReport Report;
 
     protected override async Task OnInitializedAsync()
     {
@@ -29,8 +29,8 @@
         //Stimulsoft.Base.StiLicense.LoadFromStream(licenseStream);
 
         // Create dashboard object
-        report = StiReport.CreateNewDashboard();
-        var dashboard = report.Pages[0] as StiDashboard;
+        this.Report = StiReport.CreateNewDashboard();
+        var dashboard = this.Report.Pages[0] as StiDashboard;
 
         // Read data
         var dataBytes = await Http.GetByteArrayAsync("Data/Demo.xml");
@@ -39,8 +39,8 @@
         data.ReadXml(stream);
 
         // Register data
-        report.RegData(data);
-        report.Dictionary.Synchronize();
+        this.Report.RegData(data);
+        this.Report.Dictionary.Synchronize();
 
         // Create table
         var tableElement = new StiTableElement();

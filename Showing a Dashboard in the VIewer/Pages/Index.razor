@@ -6,13 +6,13 @@
 
 @inject HttpClient Http
 
-<!--Report viewer-->
-<StiBlazorViewer Report="@report"></StiBlazorViewer>
+<!--Report Viewer-->
+<StiBlazorViewer Report="@Report"></StiBlazorViewer>
 
 @code
 {
-    // Dashboard object to use in viewer
-    private StiReport report;
+    // Dashboard object to use in Viewer
+    private StiReport Report;
 
     protected override async Task OnInitializedAsync()
     {
@@ -24,10 +24,10 @@
         //Stimulsoft.Base.StiLicense.LoadFromStream(licenseStream);
 
         // Create dashboard object
-        report = StiReport.CreateNewDashboard();
+        this.Report = StiReport.CreateNewDashboard();
 
         // Load dashboard template
         var dashboardBytes = await Http.GetByteArrayAsync("Dashboards/DashboardChristmas.mrt");
-        report.Load(dashboardBytes);
+        this.Report.Load(dashboardBytes);
     }
 }

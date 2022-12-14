@@ -36,6 +36,8 @@
 
     private async Task ExportDashboardAsHTML()
     {
+        message = new MarkupString("Processing...");
+
         // Create empty dashboard object
         var report = StiReport.CreateNewDashboard();
 
@@ -49,6 +51,8 @@
 
     private async Task ExportDashboardAsPDF()
     {
+        message = new MarkupString("Processing...");
+
         // Create empty dashboard object
         var report = StiReport.CreateNewDashboard();
 
@@ -62,6 +66,8 @@
 
     private async Task PrintDashboard()
     {
+        message = new MarkupString("Processing...");
+
         // Create empty dashboard object
         var report = StiReport.CreateNewDashboard();
 
