@@ -1,6 +1,6 @@
 # Blazor WebAssembly samples for Stimulsoft Dashboards.BLAZOR
 
-#### This repository contains the source code of the examples of usage Stimulsoft Dashboards.BLAZOR data analytics tool in the Blazor WebAssembly applications, using C# code and Razor components. This embedded dashboard components and examples are compatible with .NET 5.0, .NET 6.0, .NET 7.0, and .NET 8.0 frameworks.
+#### This repository contains the source code of the examples of usage Stimulsoft Dashboards.BLAZOR data analytics tool in the Blazor WebAssembly applications, using C# code and Razor components. This embedded dashboard components and examples are compatible with .NET 6.0, .NET 7.0, and .NET 8.0 frameworks.
 
 # Overview
 This repository has some examples (Visual Studio Projects) each in different folders:
