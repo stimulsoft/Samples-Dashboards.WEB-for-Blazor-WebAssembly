@@ -1,0 +1,34 @@
+﻿@page "/"
+@using Stimulsoft.Base
+@using Stimulsoft.Report
+@using Stimulsoft.Report.Blazor
+@using Stimulsoft.Report.Web
+@using Stimulsoft.Report.Dictionary
+@using Stimulsoft.Dashboard
+@inject HttpClient Http
+
+<!--Dashboard Designer-->
+<StiBlazorDesigner Report="@Report"></StiBlazorDesigner>
+
+@code
+{   
+    // Dashboard object to use in Designer
+    private StiReport Report;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        //How to activate
+        //Stimulsoft.Base.StiLicense.Key = "6vJhGtLLLz2GNviWmUTrhSqnO...";
+        //var licenseStream = await Http.GetStreamAsync("Secret/license.key");
+        //Stimulsoft.Base.StiLicense.LoadFromStream(licenseStream);
+
+        // Create dashboard object
+        this.Report = StiReport.CreateNewDashboard();
+
+        // Load dashboard template
+        var dashboardBytes = await Http.GetByteArrayAsync("Dashboards/DashboardChristmas.mrt");
+        this.Report.Load(dashboardBytes);
+    }
+}

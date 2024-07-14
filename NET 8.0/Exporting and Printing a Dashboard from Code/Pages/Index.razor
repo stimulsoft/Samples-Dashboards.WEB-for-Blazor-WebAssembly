@@ -1,0 +1,83 @@
+﻿@page "/"
+@using Stimulsoft.Base
+@using Stimulsoft.Report
+@using Stimulsoft.Report.Blazor
+@using Stimulsoft.Report.Web
+@using Stimulsoft.Dashboard
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+<div align="center">
+    <button @onclick="ExportDashboardAsHTML">Export as HTML</button> &nbsp; <button @onclick="ExportDashboardAsPDF">Export as PDF</button> &nbsp; <button @onclick="PrintDashboard">Print</button>
+    <br /><br />
+    <input id="responseAsFile" type="checkbox" @bind="responseAsFile"><label for="responseAsFile">Response as File</label>
+    <br /><br />
+    <p>@message</p>
+</div>
+
+@code
+{
+    private bool responseAsFile;
+
+    private MarkupString message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        //How to activate
+        //Stimulsoft.Base.StiLicense.Key = "6vJhGtLLLz2GNviWmUTrhSqnO...";
+        //var licenseStream = await Http.GetStreamAsync("Secret/license.key");
+        //Stimulsoft.Base.StiLicense.LoadFromStream(licenseStream);
+
+        // Initialize JSRuntime service
+        StiBlazorHelper.Initialize(JSRuntime);
+    }
+
+    private async Task ExportDashboardAsHTML()
+    {
+        message = new MarkupString("Processing...");
+
+        // Create empty dashboard object
+        var report = StiReport.CreateNewDashboard();
+
+        // Load dashboard template
+        var reportBytes = await Http.GetByteArrayAsync("Dashboards/DashboardChristmas.mrt");
+        report.Load(reportBytes);
+
+        StiReportResponse.ResponseAsHtml(report, responseAsFile);
+        message = new MarkupString("Export to HTML is completed.");
+    }
+
+    private async Task ExportDashboardAsPDF()
+    {
+        message = new MarkupString("Processing...");
+
+        // Create empty dashboard object
+        var report = StiReport.CreateNewDashboard();
+
+        // Load dashboard template
+        var reportBytes = await Http.GetByteArrayAsync("Dashboards/DashboardChristmas.mrt");
+        report.Load(reportBytes);
+
+        StiReportResponse.ResponseAsPdf(report, responseAsFile);
+        message = new MarkupString("Export to PDF is completed.");
+    }
+
+    private async Task PrintDashboard()
+    {
+        message = new MarkupString("Processing...");
+
+        // Create empty dashboard object
+        var report = StiReport.CreateNewDashboard();
+
+        // Load dashboard template
+        var reportBytes = await Http.GetByteArrayAsync("Dashboards/DashboardChristmas.mrt");
+        report.Load(reportBytes);
+
+        // Print dashboard
+        StiReportResponse.PrintAsPdf(report);
+
+        message = new MarkupString("The dashboard printed");
+    }
+}
